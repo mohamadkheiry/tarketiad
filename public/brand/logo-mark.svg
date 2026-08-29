@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title description">
+  <title id="title">نشان مرکز طلوع خورشید</title>
+  <desc id="description">خورشیدی در آستانه‌ای رو به مسیر تازه</desc>
+  <rect x="2" y="2" width="60" height="60" rx="20" fill="#123F38"/>
+  <rect x="2.75" y="2.75" width="58.5" height="58.5" rx="19.25" fill="none" stroke="#FFF8E8" stroke-opacity=".16" stroke-width="1.5"/>
+  <path d="M17 49V32.5C17 23.94 23.72 17 32 17s15 6.94 15 15.5V49H17Z" fill="#FFF8E8"/>
+  <circle cx="32" cy="31" r="7.5" fill="#F5B942"/>
+  <path d="M17 40.3c5.64-3.7 10.76-4.18 15.34-2.1 5.08 2.3 9.01 1.54 14.66-1.52V49H17v-8.7Z" fill="#6F9985"/>
+  <path d="M24.7 49c1.7-5.02 4.13-8.63 7.3-10.8 3.17 2.17 5.6 5.78 7.3 10.8h-5.26c-.54-3.15-1.22-5.36-2.04-6.63-.82 1.27-1.5 3.48-2.04 6.63H24.7Z" fill="#FFF8E8"/>
+  <path d="M24.25 13.35 22.3 9.8M39.75 13.35l1.95-3.55M32 11.1V7.5" fill="none" stroke="#F5B942" stroke-linecap="round" stroke-width="2.4"/>
+</svg>
