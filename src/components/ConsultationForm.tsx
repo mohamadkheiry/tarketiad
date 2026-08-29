@@ -3,7 +3,12 @@
 import { useState } from "react";
 import { CheckCircle2, LoaderCircle, Send } from "lucide-react";
 
-export function ConsultationForm() {
+type ConsultationFormProps = {
+  privacyText?: string;
+  successText?: string;
+};
+
+export function ConsultationForm({ privacyText, successText }: ConsultationFormProps) {
   const [state, setState] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
 
@@ -20,7 +25,7 @@ export function ConsultationForm() {
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || "ثبت درخواست انجام نشد.");
       setState("success");
-      setMessage("درخواست شما با موفقیت ثبت شد. همکاران ما در اولین فرصت با شما تماس می‌گیرند.");
+      setMessage(successText || "درخواست شما ثبت شد. در بازه انتخابی با شما تماس می‌گیریم.");
       (document.getElementById("consultation-form") as HTMLFormElement)?.reset();
     } catch (error) {
       setState("error");
@@ -58,7 +63,7 @@ export function ConsultationForm() {
         {state === "loading" ? <LoaderCircle size={18} className="animate-spin" /> : <Send size={18} />}
         ثبت درخواست محرمانه
       </button>
-      <p className="text-xs leading-6 text-[#718078]">با ثبت این فرم، تنها برای هماهنگی مشاوره با شما تماس گرفته می‌شود. اطلاعات شما محرمانه می‌ماند.</p>
+      <p className="text-xs leading-6 text-[#718078]">{privacyText || "اطلاعات این فرم فقط برای هماهنگی تماس و راهنمایی اولیه استفاده می‌شود."}</p>
       {message ? <div role="status" className={`flex items-start gap-2 rounded-lg p-3 text-sm ${state === "success" ? "bg-[#e8f4ed] text-[#0f5a3e]" : "bg-red-50 text-red-700"}`}>{state === "success" ? <CheckCircle2 size={19} /> : null}{message}</div> : null}
     </form>
   );
