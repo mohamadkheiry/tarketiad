@@ -7,7 +7,8 @@
 ```text
 کاربر → HTTP/HTTPS یا Reverse Proxy → sepidar_app:3000 → sepidar_db:5432
                                           │
-                                          └→ Volume دائمی PostgreSQL
+                                          ├→ Volume دائمی PostgreSQL
+                                          └→ Volume دائمی رسانه‌ها
 ```
 
 در `docker-compose.yml` فقط پورت اپلیکیشن روی Host منتشر می‌شود. PostgreSQL در شبکه داخلی Compose باقی می‌ماند.
@@ -89,7 +90,7 @@ server {
     listen 80;
     server_name example.com www.example.com;
 
-    client_max_body_size 2m;
+    client_max_body_size 220m;
 
     location / {
         proxy_pass http://127.0.0.1:8012;
@@ -115,6 +116,14 @@ docker compose exec -T db pg_dump -U "$POSTGRES_USER" -d "$POSTGRES_DB" -Fc > "b
 
 فایل‌های `.env` و تنظیمات Reverse Proxy نیز باید جداگانه و رمزگذاری‌شده نگهداری شوند. تصاویر پروژه داخل Git هستند و با Clone بازیابی می‌شوند.
 
+فایل‌های بارگذاری‌شده داخل Git نیستند و باید جداگانه از Volume رسانه پشتیبان‌گیری شوند:
+
+```bash
+docker compose run --rm --no-deps -v "$PWD/backups:/backup" app sh -c 'tar -czf /backup/sepidar-media-$(date +%F-%H%M).tar.gz -C /app/uploads .'
+```
+
+پشتیبان دیتابیس و رسانه باید متعلق به یک بازه زمانی باشند؛ دیتابیس مشخصات فایل و Volume خود فایل را نگهداری می‌کند.
+
 ## اعمال نسخه مرجع محتوا
 
 Seed معمولی محتوای ویرایش‌شده در پنل را حفظ می‌کند. تنها زمانی که می‌خواهید متن‌های مرجع موجود در کد عمداً جایگزین محتوای فعلی شوند، پس از تهیه پشتیبان اجرا کنید:
@@ -136,6 +145,14 @@ docker compose exec -T db createdb -U "$POSTGRES_USER" "$POSTGRES_DB"
 docker compose exec -T db pg_restore -U "$POSTGRES_USER" -d "$POSTGRES_DB" --clean --if-exists < backups/FILE.dump
 docker compose start app
 curl -f http://127.0.0.1:8012/api/health
+```
+
+برای بازگردانی رسانه‌ها، ابتدا از وضعیت فعلی پشتیبان بگیرید. فرمان زیر محتوای فعلی Volume را جایگزین می‌کند:
+
+```bash
+docker compose stop app
+docker compose run --rm --no-deps -v "$PWD/backups:/backup" app sh -c 'rm -rf /app/uploads/* && tar -xzf /backup/FILE.tar.gz -C /app/uploads'
+docker compose start app
 ```
 
 ## مانیتورینگ و عیب‌یابی
@@ -181,6 +198,8 @@ docker compose up -d --build
 - [ ] پشتیبان روزانه و تست فصلی Restore
 - [ ] بازبینی Audit Log و درخواست‌های بایگانی‌شده
 - [ ] سیاست رسمی حفظ و حذف داده‌های حساس
+- [ ] فرم رضایت قابل اثبات برای هر روایت بهبودی و فرایند پس‌گرفتن رضایت
+- [ ] پشتیبان روزانه از Volume رسانه و کنترل فضای دیسک
 
 ## برنامه پشتیبانی پیشنهادی
 

@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { BarChart3, CircleHelp, ClipboardList, FileText, Home, LogOut, Menu, Settings, Stethoscope, Users } from "lucide-react";
+import { BarChart3, CircleHelp, ClipboardList, FileText, Home, Images, LogOut, Menu, Settings, Stethoscope, Users } from "lucide-react";
 import { Brand } from "@/components/Brand";
 import { getSession } from "@/lib/auth";
 
 const links = [
   ["/admin", "نمای کلی", BarChart3], ["/admin/requests", "درخواست‌های مشاوره", ClipboardList],
   ["/admin/content", "محتوا", FileText], ["/admin/services", "خدمات", Stethoscope],
-  ["/admin/faqs", "پرسش‌های متداول", CircleHelp], ["/admin/users", "کاربران", Users], ["/admin/settings", "تنظیمات", Settings],
+  ["/admin/media", "تصاویر و ویدیوها", Images], ["/admin/faqs", "پرسش‌های متداول", CircleHelp],
+  ["/admin/users", "کاربران", Users], ["/admin/settings", "تنظیمات", Settings],
 ] as const;
 
 export async function AdminShell({ children, active, title, description, action }: { children: React.ReactNode; active: string; title: string; description?: string; action?: React.ReactNode }) {

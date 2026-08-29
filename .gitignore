@@ -44,3 +44,6 @@ next-env.d.ts
 
 # rejected generated asset (checkerboard background)
 /public/images/sepidar-mark.png
+
+# uploaded media (stored in a persistent volume in production)
+/uploads/

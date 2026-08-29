@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, CalendarCheck, Check, ChevronLeft, ClipboardCheck, HeartHandshake, LockKeyhole, Menu, Phone, Route, Sparkles, UsersRound } from "lucide-react";
 import { Brand } from "@/components/Brand";
 import { ConsultationForm } from "@/components/ConsultationForm";
+import { MediaShowcase } from "@/components/MediaShowcase";
 import { db } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
@@ -25,20 +26,25 @@ const fallbackFaqs = [
 
 async function getHomeData() {
   try {
-    const [services, faqs, entries, settings] = await Promise.all([
+    const [services, faqs, entries, settings, media] = await Promise.all([
       db.service.findMany({ where: { active: true }, orderBy: { order: "asc" } }),
       db.faq.findMany({ where: { active: true }, orderBy: { order: "asc" } }),
       db.contentEntry.findMany({ where: { group: "home" } }),
       db.siteSetting.findUnique({ where: { id: 1 } }),
+      db.mediaItem.findMany({
+        where: { active: true, OR: [{ category: "ACTIVITY" }, { category: "RECOVERY_STORY", consentConfirmed: true }] },
+        orderBy: [{ featured: "desc" }, { order: "asc" }, { createdAt: "desc" }],
+        select: { id: true, title: true, caption: true, altText: true, personName: true, type: true, category: true, storageKey: true, featured: true },
+      }),
     ]);
-    return { services, faqs, content: Object.fromEntries(entries.map((entry) => [entry.key, entry.value])), settings };
+    return { services, faqs, content: Object.fromEntries(entries.map((entry) => [entry.key, entry.value])), settings, media };
   } catch {
-    return { services: [], faqs: [], content: {} as Record<string, string>, settings: null };
+    return { services: [], faqs: [], content: {} as Record<string, string>, settings: null, media: [] };
   }
 }
 
 export default async function Home() {
-  const { services, faqs, content, settings } = await getHomeData();
+  const { services, faqs, content, settings, media } = await getHomeData();
   const serviceItems = services.length ? services.map((item) => [item.title, item.summary]) : fallbackServices;
   const faqItems = faqs.length ? faqs.map((item) => [item.question, item.answer]) : fallbackFaqs;
   const text = (key: string, fallback: string) => content[key] || fallback;
@@ -49,9 +55,9 @@ export default async function Home() {
         <div className="container-shell flex h-[74px] items-center justify-between gap-6">
           <Brand />
           <nav className="hidden items-center gap-7 text-sm font-semibold text-[#3c4a44] lg:flex" aria-label="ناوبری اصلی">
-            <a className="focus-ring rounded-sm text-[#0f4a36]" href="#home">خانه</a><a className="focus-ring rounded-sm transition hover:text-[#0f4a36]" href="#services">خدمات درمانی</a><a className="focus-ring rounded-sm transition hover:text-[#0f4a36]" href="#journey">مسیر درمان</a><a className="focus-ring rounded-sm transition hover:text-[#0f4a36]" href="#about">درباره ما</a><a className="focus-ring rounded-sm transition hover:text-[#0f4a36]" href="#faq">پرسش‌ها</a>
+            <a className="focus-ring rounded-sm text-[#0f4a36]" href="#home">خانه</a><a className="focus-ring rounded-sm transition hover:text-[#0f4a36]" href="#services">خدمات درمانی</a><a className="focus-ring rounded-sm transition hover:text-[#0f4a36]" href="#journey">مسیر درمان</a><a className="focus-ring rounded-sm transition hover:text-[#0f4a36]" href="#media">رسانه‌ها</a><a className="focus-ring rounded-sm transition hover:text-[#0f4a36]" href="#about">درباره ما</a><a className="focus-ring rounded-sm transition hover:text-[#0f4a36]" href="#faq">پرسش‌ها</a>
           </nav>
-          <div className="flex items-center gap-2"><a href="#consultation" className="btn-primary header-cta"><Phone size={17} />مشاوره محرمانه</a><details className="relative lg:hidden"><summary className="focus-ring grid size-11 cursor-pointer list-none place-items-center rounded-lg border border-[#dce6e0]" aria-label="باز کردن منو"><Menu size={21} /></summary><nav className="absolute left-0 top-14 grid w-56 gap-1 rounded-xl border border-[#dce6e0] bg-white p-2 text-sm font-semibold shadow-xl"><a className="rounded-lg p-3 hover:bg-[#edf4ef]" href="#home">خانه</a><a className="rounded-lg p-3 hover:bg-[#edf4ef]" href="#services">خدمات درمانی</a><a className="rounded-lg p-3 hover:bg-[#edf4ef]" href="#journey">مسیر درمان</a><a className="rounded-lg p-3 hover:bg-[#edf4ef]" href="#about">درباره ما</a><a className="rounded-lg p-3 hover:bg-[#edf4ef]" href="#faq">پرسش‌ها</a></nav></details></div>
+          <div className="flex items-center gap-2"><a href="#consultation" className="btn-primary header-cta"><Phone size={17} />مشاوره محرمانه</a><details className="relative lg:hidden"><summary className="focus-ring grid size-11 cursor-pointer list-none place-items-center rounded-lg border border-[#dce6e0]" aria-label="باز کردن منو"><Menu size={21} /></summary><nav className="absolute left-0 top-14 grid w-56 gap-1 rounded-xl border border-[#dce6e0] bg-white p-2 text-sm font-semibold shadow-xl"><a className="rounded-lg p-3 hover:bg-[#edf4ef]" href="#home">خانه</a><a className="rounded-lg p-3 hover:bg-[#edf4ef]" href="#services">خدمات درمانی</a><a className="rounded-lg p-3 hover:bg-[#edf4ef]" href="#journey">مسیر درمان</a><a className="rounded-lg p-3 hover:bg-[#edf4ef]" href="#media">رسانه‌ها</a><a className="rounded-lg p-3 hover:bg-[#edf4ef]" href="#about">درباره ما</a><a className="rounded-lg p-3 hover:bg-[#edf4ef]" href="#faq">پرسش‌ها</a></nav></details></div>
         </div>
       </header>
 
@@ -72,6 +78,8 @@ export default async function Home() {
       <section id="journey" className="section-space bg-white"><div className="container-shell"><div className="mx-auto max-w-2xl text-center"><span className="text-sm font-bold text-[#9c7413]">{text("journey.kicker", "از نخستین تماس تا ادامه بهبودی")}</span><h2 className="display-title mt-4 text-[clamp(2rem,3.5vw,3.35rem)]">{text("journey.title", "شروع درمان، قدم‌به‌قدم و قابل فهم")}</h2></div><div className="relative mt-16 grid gap-8 md:grid-cols-4 md:gap-0"><div className="absolute left-[12%] right-[12%] top-7 hidden h-px bg-[#cddad2] md:block" />{[[Phone,"گفت‌وگوی اولیه","نگرانی‌ها را می‌شنویم، به پرسش‌ها پاسخ می‌دهیم و قدم بعدی را توضیح می‌دهیم."],[ClipboardCheck,"ارزیابی جامع","وضعیت جسمی و روانی، الگوی مصرف و شرایط زندگی بررسی می‌شود."],[CalendarCheck,"توافق بر سر برنامه","هدف‌ها، سطح مراقبت و مسیر پیگیری به‌صورت روشن با شما مرور می‌شود."],[Route,"تداوم بهبودی","مهارت‌ها، شبکه حمایت و برنامه مواجهه با موقعیت‌های پرخطر شکل می‌گیرد."]].map(([Icon,title,description], index) => { const StepIcon = Icon as typeof Phone; return <article key={title as string} className="relative px-5 text-center"><span className="relative z-10 mx-auto grid size-14 place-items-center rounded-full bg-[#0f4a36] text-white shadow-[0_0_0_8px_white]"><StepIcon size={21} /></span><span className="mt-5 block text-xs font-bold text-[#a07817]">مرحله ۰{index + 1}</span><h3 className="mt-2 font-extrabold text-[#173d2f]">{title as string}</h3><p className="mt-3 text-sm leading-7 text-[#718078]">{description as string}</p></article>; })}</div></div></section>
 
       <section id="about" className="section-space bg-[#edf4ef]"><div className="container-shell grid items-center gap-12 lg:grid-cols-[1.25fr_.75fr]"><div className="relative min-h-[420px] overflow-hidden rounded-[24px] lg:min-h-[560px]"><Image src="/images/clinic-courtyard.png" alt="فضای سبز و آرام مرکز سپیدار" fill sizes="(max-width: 1024px) 100vw, 60vw" className="object-cover" /></div><div><span className="text-sm font-bold text-[#9c7413]">{text("facility.kicker", "فضای مراقبت")}</span><h2 className="display-title mt-4 text-[clamp(2rem,3.5vw,3.35rem)]">{text("facility.title", "فضایی آرام، محترمانه و دور از قضاوت")}</h2><p className="body-copy mt-6">{text("facility.description", "محیط درمان باید امکان گفت‌وگوی امن، حفظ حریم شخصی و تمرکز بر بهبودی را فراهم کند. پیش از پذیرش می‌توانید درباره فضای مرکز، قوانین حضور و امکانات متناسب با نیاز خود پرس‌وجو کنید.")}</p><ul className="mt-7 grid gap-3 text-sm font-semibold text-[#335044]"><li className="flex gap-3"><Check size={18} className="text-[#b4871e]" />توضیح شفاف قوانین و مراحل پیش از پذیرش</li><li className="flex gap-3"><Check size={18} className="text-[#b4871e]" />احترام به حریم، انتخاب و کرامت مراجع</li><li className="flex gap-3"><Check size={18} className="text-[#b4871e]" />امکان پرس‌وجو درباره امکانات متناسب با نیاز شما</li></ul><a href="#consultation" className="btn-primary mt-8">هماهنگی بازدید و گفت‌وگو<ChevronLeft size={18} /></a></div></div></section>
+
+      <MediaShowcase items={media} />
 
       <section className="bg-white py-20"><div className="container-shell grid gap-8 border-y border-[#dce6e0] py-14 lg:grid-cols-[.35fr_1fr] lg:items-center"><div className="flex items-center gap-4 text-[#0f4a36]"><Sparkles size={32} strokeWidth={1.4} /><span className="text-sm font-bold">{text("principle.label", "نگاه ما به بهبودی")}</span></div><blockquote className="text-xl font-medium leading-[2] text-[#30443b] sm:text-2xl">«{text("principle.quote", "بهبودی فقط متوقف‌کردن مصرف نیست؛ فرایندی برای بازسازی سلامت، روابط، اعتماد و توان تصمیم‌گیری در زندگی روزمره است.")}»</blockquote></div></section>
 

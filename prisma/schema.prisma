@@ -20,6 +20,16 @@ enum RequestStatus {
   ARCHIVED
 }
 
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+enum MediaCategory {
+  ACTIVITY
+  RECOVERY_STORY
+}
+
 model User {
   id           String     @id @default(cuid())
   name         String
@@ -85,6 +95,29 @@ model ContentEntry {
   updatedAt DateTime @updatedAt
 
   @@index([group])
+}
+
+model MediaItem {
+  id                 String        @id @default(cuid())
+  title              String
+  caption            String?       @db.Text
+  altText            String?
+  personName         String?
+  type               MediaType
+  category           MediaCategory
+  storageKey         String        @unique
+  mimeType           String
+  fileSize           Int
+  consentConfirmed   Boolean       @default(false)
+  consentReference   String?
+  featured           Boolean       @default(false)
+  active             Boolean       @default(false)
+  order              Int           @default(0)
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  @@index([active, category, order])
+  @@index([createdAt])
 }
 
 model SiteSetting {
