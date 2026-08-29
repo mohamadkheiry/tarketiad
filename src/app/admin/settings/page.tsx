@@ -1,0 +1,3 @@
+import { AdminShell } from "@/components/admin/AdminShell"; import { SettingsEditor } from "@/components/admin/Editors"; import { db } from "@/lib/db";
+export const dynamic = "force-dynamic";
+export default async function SettingsPage() { const settings = await db.siteSetting.upsert({ where:{id:1}, update:{}, create:{id:1} }); const initial = { centerName:settings.centerName, phone:settings.phone, mobile:settings.mobile, email:settings.email, address:settings.address, workingHours:settings.workingHours, emergencyMessage:settings.emergencyMessage }; return <AdminShell active="/admin/settings" title="تنظیمات" description="اطلاعات تماس و پیام‌های عمومی مرکز"><SettingsEditor initial={initial} /></AdminShell>; }
