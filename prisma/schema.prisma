@@ -122,11 +122,11 @@ model MediaItem {
 
 model SiteSetting {
   id               Int      @id @default(1)
-  centerName       String   @default("مرکز بازتوانی سپیدار")
-  phone            String   @default("021-12345678")
-  mobile           String   @default("0912-1234567")
-  email            String   @default("info@sepidarcenter.ir")
-  address          String   @default("تهران، آدرس مرکز پس از تماس اعلام می‌شود")
+  centerName       String   @default("مرکز ترک اعتیاد طلوع خورشید")
+  phone            String   @default("09357238914")
+  mobile           String   @default("09357238914")
+  email            String   @default("")
+  address          String   @default("نشانی دقیق مرکز پیش از مراجعه تلفنی اعلام می‌شود")
   workingHours     String   @default("همه‌روزه، ساعت ۸ تا ۲۲")
   emergencyMessage String   @default("این وب‌سایت جایگزین خدمات اورژانسی نیست. در شرایط فوری با ۱۱۵ تماس بگیرید.")
   updatedAt        DateTime @updatedAt

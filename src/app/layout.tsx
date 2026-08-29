@@ -4,12 +4,12 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
-  title: { default: "مرکز بازتوانی سپیدار", template: "%s | سپیدار" },
-  description: "همراهی تخصصی، محرمانه و محترمانه در مسیر درمان و بازتوانی اعتیاد.",
+  title: { default: "مرکز ترک اعتیاد طلوع خورشید", template: "%s | طلوع خورشید" },
+  description: "مرکز ترک اعتیاد و بازتوانی طلوع خورشید؛ همراهی محرمانه، محترمانه و قدم‌به‌قدم از سال ۱۳۸۸.",
   robots: { index: true, follow: true },
 };
 
-export const viewport: Viewport = { themeColor: "#0f4a36", colorScheme: "light" };
+export const viewport: Viewport = { themeColor: "#123f38", colorScheme: "light" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (

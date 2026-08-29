@@ -1,19 +1,20 @@
 import Link from "next/link";
 
 export function Brand({ compact = false, inverse = false }: { compact?: boolean; inverse?: boolean }) {
-  const color = inverse ? "#ffffff" : "#0f4a36";
+  const color = inverse ? "#ffffff" : "#123f38";
   return (
-    <Link href="/" className="focus-ring inline-flex items-center gap-3 rounded-md" aria-label="صفحه اصلی سپیدار">
-      <svg width={compact ? 38 : 46} height={compact ? 38 : 46} viewBox="0 0 48 48" aria-hidden="true">
-        <path d="M8 39c7-1 11-5 14-10 4-7 5-14 4-20-8 3-13 8-15 15-1 4-1 10-3 15Z" fill={color} />
-        <path d="M20 42c6-7 12-12 20-16-1 9-7 16-20 16Z" fill={color} />
-        <path d="M23 31c5-6 9-12 11-20 4 7 2 14-11 20Z" fill={color} opacity=".78" />
-        <path d="M9 40c10 2 21 1 31-4" fill="none" stroke="#e9b43a" strokeWidth="2.4" strokeLinecap="round" />
+    <Link href="/" className="focus-ring inline-flex items-center gap-3 rounded-md" aria-label="صفحه اصلی مرکز طلوع خورشید">
+      <svg width={compact ? 40 : 48} height={compact ? 40 : 48} viewBox="0 0 52 52" aria-hidden="true">
+        <circle cx="26" cy="25" r="20" fill={inverse ? "rgba(255,255,255,.08)" : "#eef6f1"} />
+        <path d="M14 31a12 12 0 0 1 24 0" fill="#f5b942" />
+        <path d="M11 34c7-2 13-2 18 0 5 2 9 1 13-1" fill="none" stroke={color} strokeWidth="3" strokeLinecap="round" />
+        <path d="M26 8v6M11.5 16.5l4.5 4M40.5 16.5l-4.5 4M8 28h6M38 28h6" fill="none" stroke="#f5b942" strokeWidth="2.2" strokeLinecap="round" />
+        <path d="M20 39c4-3 8-4 12-3-2 5-6 8-12 8Z" fill={color} opacity=".9" />
       </svg>
       {!compact ? (
         <span className="leading-tight">
-          <strong className="block text-lg font-extrabold" style={{ color }}>سپیدار</strong>
-          <span className={`text-[11px] ${inverse ? "text-white/70" : "text-[#66736d]"}`}>مرکز بازتوانی</span>
+          <strong className="block text-[17px] font-black" style={{ color }}>طلوع خورشید</strong>
+          <span className={`text-[10px] ${inverse ? "text-white/70" : "text-[#697a73]"}`}>مرکز ترک اعتیاد و بازتوانی</span>
         </span>
       ) : null}
     </Link>
