@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">ویدیو از مرکز طلوع خورشید</title>
+  <desc id="desc">کاور سبز و طلایی ویدیوهای فعالیت مرکز</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#174f45"/>
+      <stop offset=".55" stop-color="#0b3b32"/>
+      <stop offset="1" stop-color="#062b25"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="45%" r="50%">
+      <stop offset="0" stop-color="#ffd873" stop-opacity=".34"/>
+      <stop offset="1" stop-color="#f5b942" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#001b16" flood-opacity=".45"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="800" cy="390" r="380" fill="url(#sun)"/>
+  <g opacity=".13" fill="none" stroke="#f8ce69" stroke-width="2">
+    <circle cx="120" cy="120" r="230"/>
+    <circle cx="1480" cy="780" r="310"/>
+    <path d="M0 735c245-110 452-91 641 34s394 134 612 25 347-100 347-100"/>
+  </g>
+  <g transform="translate(800 407)" filter="url(#shadow)">
+    <circle r="116" fill="#f7c650"/>
+    <circle r="92" fill="#fff7df" fill-opacity=".16" stroke="#fff7df" stroke-opacity=".42" stroke-width="2"/>
+    <path d="M-22-43 53 0-22 43Z" fill="#083a31"/>
+  </g>
+  <g fill="#f8d57c" opacity=".9">
+    <path d="M800 212v-55" stroke="#f8d57c" stroke-width="10" stroke-linecap="round"/>
+    <path d="m662 263-39-39M938 263l39-39M607 407h-55M993 407h55" stroke="#f8d57c" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <text x="800" y="620" text-anchor="middle" fill="#fffaf0" font-family="Tahoma, Arial, sans-serif" font-size="54" font-weight="700" direction="rtl">ویدیو از زندگی در طلوع خورشید</text>
+  <text x="800" y="684" text-anchor="middle" fill="#c9ddd6" font-family="Tahoma, Arial, sans-serif" font-size="28" direction="rtl">برای پخش، دکمه را لمس کنید</text>
+</svg>
