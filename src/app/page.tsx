@@ -129,10 +129,11 @@ export default async function Home() {
           <figure className="relative mx-auto w-full max-w-[560px]">
             <div className="absolute -inset-3 rotate-2 rounded-[42px] bg-[#123f38]" aria-hidden="true" />
             <div className="relative aspect-square overflow-hidden rounded-[36px] border-8 border-white shadow-[0_28px_80px_rgba(18,63,56,.2)]">
-              <Image src="/images/center-management.webp" alt="مدیریت مرکز ترک اعتیاد طلوع خورشید" fill sizes="(max-width: 1024px) 100vw, 48vw" className="object-cover" />
+              <Image src="/images/center-management.webp" alt="سید سجاد هاشمی، مدیر مرکز ترک اعتیاد طلوع خورشید" fill sizes="(max-width: 1024px) 100vw, 48vw" className="object-cover" />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#071f1c]/90 via-[#071f1c]/50 to-transparent px-6 pb-6 pt-20 text-white sm:px-8 sm:pb-8">
-                <span className="text-xs font-semibold text-[#f5c65d]">تصویر واقعی</span>
-                <figcaption className="mt-1.5 text-lg font-black">{text("management.caption", "مدیریت مرکز ترک اعتیاد طلوع خورشید")}</figcaption>
+                <span className="text-xs font-semibold text-[#f5c65d]">تصویر واقعی · مدیریت مرکز</span>
+                <figcaption className="mt-1.5 text-xl font-black">{text("management.name", "سید سجاد هاشمی")}</figcaption>
+                <p className="mt-1 text-xs text-white/72">{text("management.caption", "مدیر مرکز ترک اعتیاد طلوع خورشید")}</p>
               </div>
             </div>
           </figure>
@@ -166,7 +167,23 @@ export default async function Home() {
       <section id="consultation" className="section-space bg-[#f4f8f5]"><div className="container-shell grid overflow-hidden rounded-[24px] border border-[#d9e5de] bg-white shadow-[0_24px_80px_rgba(15,74,54,.08)] lg:grid-cols-[.7fr_1.3fr]"><div className="relative overflow-hidden bg-[#0f4a36] p-8 text-white sm:p-12"><div className="absolute -bottom-16 -left-12 size-64 rounded-full border border-white/10" /><div className="absolute -bottom-6 -left-4 size-40 rounded-full border border-[#e9b43a]/40" /><h2 className="relative text-3xl font-black leading-[1.5]">{text("cta.title", "برای تصمیم‌گرفتن لازم نیست همه پاسخ‌ها را بدانید")}</h2><p className="relative mt-5 leading-8 text-white/72">{text("cta.description", "یک گفت‌وگوی اولیه کمک می‌کند شرایط روشن‌تر شود و قدم بعدی را آگاهانه انتخاب کنید.")}</p><div className="relative mt-12 border-t border-white/15 pt-7"><p className="text-xs text-white/60">تماس مستقیم</p><a dir="ltr" className="mt-2 inline-block text-xl font-bold" href={`tel:${phone.replace(/\D/g, "")}`}>{phone}</a><p className="mt-5 text-xs leading-6 text-white/55">در شرایط اورژانسی پزشکی، با ۱۱۵ تماس بگیرید.</p></div></div><div className="p-7 sm:p-12"><h3 className="text-xl font-extrabold text-[#183c2f]">{text("form.title", "درخواست گفت‌وگوی محرمانه")}</h3><p className="mb-7 mt-2 text-sm leading-7 text-[#718078]">{text("form.description", "نام و شماره‌ای را وارد کنید که در دسترس شماست. در زمان انتخابی تماس می‌گیریم و فقط اطلاعات لازم برای راهنمایی اولیه را می‌پرسیم.")}</p><ConsultationForm privacyText={text("form.privacy", "اطلاعات این فرم فقط برای هماهنگی تماس و راهنمایی اولیه استفاده می‌شود. برای شرایط اورژانسی از این فرم استفاده نکنید.")} successText={text("form.success", "درخواست شما ثبت شد. در بازه انتخابی با شما تماس می‌گیریم. اگر شرایط فوری یا خطرناک است، منتظر تماس نمانید و با ۱۱۵ تماس بگیرید.")} /></div></div></section>
 
       <footer className="relative overflow-hidden bg-[#092f29] text-white"><div className="absolute -left-24 -top-24 size-72 rounded-full border border-[#f5b942]/20" aria-hidden="true" /><div className="container-shell relative grid gap-10 py-16 md:grid-cols-3"><div><Brand inverse /><p className="mt-5 max-w-sm text-sm leading-7 text-white/62">{text("footer.description", "طلوع خورشید؛ همراه مسیر بازگشت به زندگی، با احترام به انتخاب فرد، حریم خصوصی و نقش خانواده.")}</p><div className="mt-5 flex gap-3"><a href="https://www.instagram.com/kamptark_etyad_koorosh/" target="_blank" rel="noreferrer" className="grid size-10 place-items-center rounded-full border border-white/15 text-[#f5c65d] transition hover:bg-white/10" aria-label="اینستاگرام طلوع خورشید"><Camera size={18} /></a></div></div><div><h3 className="text-sm font-bold text-[#f5c65d]">دسترسی سریع</h3><nav className="mt-5 grid gap-3 text-sm text-white/70"><a href="#services">خدمات درمانی</a><a href="#journey">مسیر درمان</a><a href="#media">تصاویر و ویدیوها</a><a href="#faq">پرسش‌های پرتکرار</a><Link href="/admin/login">ورود کارکنان</Link></nav></div><div><h3 className="text-sm font-bold text-[#f5c65d]">اطلاعات تماس</h3><div className="mt-5 grid gap-3 text-sm text-white/70"><a dir="ltr" className="w-fit text-lg font-bold text-white" href={`tel:${phone.replace(/\D/g, "")}`}>{phone}</a>{settings?.email ? <a href={`mailto:${settings.email}`}>{settings.email}</a> : null}<p>{settings?.workingHours || "همه‌روزه، ساعت ۸ تا ۲۲"}</p><p className="text-white/50">تأسیس ۱۳۸۸ · شماره ثبت ۱۸۵</p></div></div></div><div className="border-t border-white/10"><div className="container-shell flex flex-col gap-3 py-5 text-xs leading-6 text-white/45 sm:flex-row sm:justify-between"><span>© ۱۴۰۵ مرکز ترک اعتیاد طلوع خورشید</span><span>{settings?.emergencyMessage || "این وب‌سایت جایگزین ارزیابی پزشکی یا خدمات اورژانسی نیست. در شرایط فوری یا خطر برای خود یا دیگران با ۱۱۵ تماس بگیرید."}</span></div></div></footer>
-      <a href="#consultation" className="focus-ring fixed bottom-5 left-5 z-40 grid size-14 place-items-center rounded-full bg-[#e9b43a] text-[#15372b] shadow-xl transition hover:-translate-y-1" aria-label="درخواست مشاوره"><Phone size={22} /></a>
+      <a
+        href="https://www.instagram.com/kamptark_etyad_koorosh/"
+        target="_blank"
+        rel="noreferrer"
+        className="focus-ring fixed right-5 z-40 flex min-h-14 items-center gap-2 rounded-full bg-gradient-to-br from-[#6b2dbd] via-[#d62976] to-[#f59a30] px-4 text-white shadow-[0_14px_35px_rgba(190,24,93,.35)] ring-4 ring-white/90 transition hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(190,24,93,.45)] sm:px-5"
+        style={{ bottom: "max(1.25rem, env(safe-area-inset-bottom))" }}
+        aria-label="مشاهده اینستاگرام رسمی مرکز طلوع خورشید در پنجره جدید"
+        title="اینستاگرام رسمی مرکز"
+      >
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+        </svg>
+        <span className="hidden text-sm font-extrabold sm:inline">اینستاگرام مرکز</span>
+      </a>
+      <a href="#consultation" className="focus-ring fixed left-5 z-40 grid size-14 place-items-center rounded-full bg-[#e9b43a] text-[#15372b] shadow-xl transition hover:-translate-y-1" style={{ bottom: "max(1.25rem, env(safe-area-inset-bottom))" }} aria-label="درخواست مشاوره"><Phone size={22} /></a>
     </main>
   );
 }
