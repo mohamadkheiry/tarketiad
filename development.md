@@ -143,6 +143,7 @@ npx prisma migrate deploy
 - `consultation-editorial-v2.webp`: گفت‌وگوی اولیه
 - `family-support-v2.webp`: همراهی خانواده
 - `clinic-courtyard-v2.webp`: تصویر مفهومی محیط مراقبت
+- `center-management.webp`: تصویر واقعی مدیریت مرکز؛ فایل اصلی در ۱۴۰۵/۰۶/۰۸ توسط مالک پروژه برای انتشار ارائه شده است. هنگام جایگزینی، مجوز انتشار و متن جایگزین دقیق حفظ شود.
 
 ## احراز هویت
 

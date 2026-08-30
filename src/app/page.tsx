@@ -113,6 +113,32 @@ export default async function Home() {
 
       <section id="about" className="section-space bg-[#eef5f1]"><div className="container-shell grid items-center gap-12 lg:grid-cols-[1.18fr_.82fr]"><div className="relative min-h-[440px] lg:min-h-[600px]"><div className="absolute inset-0 -rotate-2 rounded-[36px] bg-[#e5b64e]" aria-hidden="true" /><div className="absolute inset-0 rotate-1 overflow-hidden rounded-[36px] border-8 border-white shadow-[0_24px_60px_rgba(18,63,56,.14)]"><Image src="/images/clinic-courtyard-v2.webp" alt="تصویر مفهومی از محیطی آرام و سبز برای مراقبت" fill sizes="(max-width: 1024px) 100vw, 60vw" className="object-cover" /><span className="absolute left-5 top-5 rounded-full border border-white/40 bg-[#092f29]/65 px-3 py-1.5 text-[10px] font-semibold text-white/80 backdrop-blur">تصویر مفهومی</span></div><div className="absolute -bottom-6 right-5 rounded-2xl bg-[#123f38] px-6 py-5 text-white shadow-xl sm:right-10"><b className="text-2xl text-[#f5c65d]">۱۷+ سال</b><span className="mr-3 text-sm text-white/70">تجربه همراهی</span></div></div><div><span className="text-sm font-bold text-[#9c7413]">{text("facility.kicker", "فضای مراقبت")}</span><h2 className="display-title mt-4 text-[clamp(2rem,3.5vw,3.35rem)]">{text("facility.title", "بیش از یک دهه تجربه، با احترام به کرامت انسان")}</h2><p className="body-copy mt-6">{text("facility.description", "طلوع خورشید از سال ۱۳۸۸ با شماره ثبت ۱۸۵ فعالیت می‌کند. محیط مرکز برای گفت‌وگوی امن، حفظ حریم شخصی و تمرکز بر ساختن یک مسیر پایدار به سوی بهبودی شکل گرفته است.")}</p><ul className="mt-8 grid gap-3 text-sm font-semibold text-[#335044]"><li className="flex gap-3 rounded-xl bg-white/70 p-3"><Check size={18} className="mt-1 shrink-0 text-[#b4871e]" />توضیح شفاف قوانین و مراحل پیش از پذیرش</li><li className="flex gap-3 rounded-xl bg-white/70 p-3"><Check size={18} className="mt-1 shrink-0 text-[#b4871e]" />احترام به حریم، انتخاب و کرامت مراجع</li><li className="flex gap-3 rounded-xl bg-white/70 p-3"><Check size={18} className="mt-1 shrink-0 text-[#b4871e]" />فضای واقعی مرکز در بخش تصاویر و ویدیوها</li></ul><div className="mt-8 flex flex-wrap gap-3"><a href="#consultation" className="btn-primary">هماهنگی بازدید و گفت‌وگو<ChevronLeft size={18} /></a><a href="https://www.instagram.com/kamptark_etyad_koorosh/" target="_blank" rel="noreferrer" className="btn-secondary"><Camera size={18} />اینستاگرام مرکز</a></div></div></div></section>
 
+      <section id="management" className="section-space relative overflow-hidden bg-[#fffaf0]">
+        <div className="absolute -left-32 top-10 size-96 rounded-full border border-[#d8af50]/18" aria-hidden="true" />
+        <div className="absolute -left-20 top-24 size-72 rounded-full border border-[#123f38]/8" aria-hidden="true" />
+        <div className="container-shell relative grid items-center gap-12 lg:grid-cols-[.95fr_1.05fr] lg:gap-20">
+          <div>
+            <span className="text-sm font-bold text-[#9c7413]">{text("management.kicker", "مدیریت مرکز")}</span>
+            <h2 className="display-title mt-4 text-[clamp(2rem,3.5vw,3.35rem)]">{text("management.title", "کیفیت مراقبت، از مسئولیت‌پذیری روزانه آغاز می‌شود")}</h2>
+            <p className="body-copy mt-6 max-w-2xl">{text("management.description", "در طلوع خورشید، مدیریت مرکز بر نظم اجرایی، پاسخ‌گویی روشن به مراجعان و خانواده‌ها، حفظ حریم خصوصی و بهبود مستمر تجربه مراقبت تمرکز دارد؛ تا هر فرد از نخستین تماس، مسیر پیش رو و حقوق خود را شفاف‌تر بشناسد.")}</p>
+            <ul className="mt-10 grid border-y border-[#d8dfd9] sm:grid-cols-3 sm:divide-x sm:divide-x-reverse sm:divide-[#d8dfd9]">
+              {[[BadgeCheck, text("management.focus1", "پاسخ‌گویی روشن")], [ShieldCheck, text("management.focus2", "حفظ حریم شخصی")], [UsersRound, text("management.focus3", "نظارت بر کیفیت خدمات")]].map(([Icon, label]) => { const FocusIcon = Icon as typeof BadgeCheck; return <li key={label as string} className="flex items-center gap-3 border-b border-[#d8dfd9] py-5 last:border-b-0 sm:block sm:border-b-0 sm:px-5 sm:text-center"><span className="grid size-10 shrink-0 place-items-center rounded-full bg-[#e6efe9] text-[#0f5a43] sm:mx-auto"><FocusIcon size={19} /></span><span className="text-sm font-extrabold text-[#28473a] sm:mt-3 sm:block">{label as string}</span></li>; })}
+            </ul>
+            <a href="#consultation" className="btn-primary mt-9">گفت‌وگو با مرکز<ChevronLeft size={18} /></a>
+          </div>
+          <figure className="relative mx-auto w-full max-w-[560px]">
+            <div className="absolute -inset-3 rotate-2 rounded-[42px] bg-[#123f38]" aria-hidden="true" />
+            <div className="relative aspect-square overflow-hidden rounded-[36px] border-8 border-white shadow-[0_28px_80px_rgba(18,63,56,.2)]">
+              <Image src="/images/center-management.webp" alt="مدیریت مرکز ترک اعتیاد طلوع خورشید" fill sizes="(max-width: 1024px) 100vw, 48vw" className="object-cover" />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#071f1c]/90 via-[#071f1c]/50 to-transparent px-6 pb-6 pt-20 text-white sm:px-8 sm:pb-8">
+                <span className="text-xs font-semibold text-[#f5c65d]">تصویر واقعی</span>
+                <figcaption className="mt-1.5 text-lg font-black">{text("management.caption", "مدیریت مرکز ترک اعتیاد طلوع خورشید")}</figcaption>
+              </div>
+            </div>
+          </figure>
+        </div>
+      </section>
+
       <section id="family" className="section-space bg-white">
         <div className="container-shell grid items-center gap-12 lg:grid-cols-[.9fr_1.1fr]">
           <div>
