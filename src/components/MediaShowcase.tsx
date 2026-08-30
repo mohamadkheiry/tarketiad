@@ -16,7 +16,7 @@ type PublicMedia = {
 function MediaFrame({ item, priority = false }: { item: PublicMedia; priority?: boolean }) {
   const src = `/media/${item.storageKey}`;
   if (item.type === "VIDEO") {
-    return <video className="size-full object-cover" src={src} poster="/video-cover.svg" controls playsInline preload="metadata" aria-label={item.altText || item.title} />;
+    return <video className="size-full bg-[#071c17] object-contain" src={src} poster="/video-cover.svg" controls playsInline preload="metadata" aria-label={item.altText || item.title} />;
   }
   return <Image unoptimized fill priority={priority} sizes="(max-width: 768px) 100vw, 45vw" src={src} alt={item.altText || item.title} className="object-cover transition duration-700 group-hover:scale-[1.035]" />;
 }

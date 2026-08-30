@@ -41,7 +41,7 @@ export function MediaManager({ initial }: { initial: MediaItem[] }) {
   async function upload(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setUploading(true);
-    setMessage("در حال بارگذاری؛ تا پایان این صفحه را نبندید...");
+    setMessage("در حال بارگذاری و آماده‌سازی نسخه سازگار با وب؛ تا پایان این صفحه را نبندید...");
     const form = event.currentTarget;
     const response = await fetch("/api/admin/media", { method: "POST", body: new FormData(form) });
     const body = await response.json();
@@ -93,7 +93,7 @@ export function MediaManager({ initial }: { initial: MediaItem[] }) {
         {items.length ? <div className="grid gap-px bg-[#e7ece9] sm:grid-cols-2 2xl:grid-cols-3">{[...items].sort((a, b) => a.order - b.order).map((item) => (
           <article key={item.id} className="bg-white p-4">
             <div className="relative aspect-video overflow-hidden rounded-lg bg-[#e9efeb]">
-              {item.type === "IMAGE" ? <Image unoptimized fill sizes="(max-width: 640px) 100vw, 360px" src={mediaUrl(item)} alt={item.altText || item.title} className="object-cover" /> : <video className="size-full object-cover" src={mediaUrl(item)} controls preload="metadata" playsInline />}
+              {item.type === "IMAGE" ? <Image unoptimized fill sizes="(max-width: 640px) 100vw, 360px" src={mediaUrl(item)} alt={item.altText || item.title} className="object-cover" /> : <video className="size-full bg-[#071c17] object-contain" src={mediaUrl(item)} controls preload="metadata" playsInline />}
               <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-md bg-[#082d21]/88 px-2 py-1 text-[10px] font-bold text-white">{item.type === "IMAGE" ? <ImageIcon size={12} /> : <FileVideo2 size={12} />}{item.type === "IMAGE" ? "تصویر" : "ویدیو"}</span>
             </div>
             <div className="mt-4 flex items-start justify-between gap-4"><div><h3 className="font-bold text-[#203c30]">{item.title}</h3><p className="mt-1 text-xs text-[#77847d]">{item.category === "ACTIVITY" ? "فعالیت مرکز" : item.personName ? `روایت ${item.personName}` : "روایت بهبودی ناشناس"} · {formatSize(item.fileSize)}</p></div><div className="flex shrink-0 gap-1"><button onClick={() => { setEditing({ ...item }); setUploadOpen(false); }} className="grid size-9 place-items-center rounded-lg text-[#35604f] hover:bg-[#edf4ef]" aria-label={`ویرایش ${item.title}`}><Pencil size={17} /></button><button onClick={() => remove(item)} className="grid size-9 place-items-center rounded-lg text-red-600 hover:bg-red-50" aria-label={`حذف ${item.title}`}><Trash2 size={17} /></button></div></div>
@@ -104,7 +104,7 @@ export function MediaManager({ initial }: { initial: MediaItem[] }) {
 
       <aside className={`h-fit rounded-xl border border-[#dfe7e2] bg-white p-5 xl:sticky xl:top-24 ${uploadOpen || editing ? "block" : "hidden xl:block"}`}>
         {uploadOpen ? <form onSubmit={upload} className="grid gap-4">
-          <div className="flex items-center justify-between"><div><h2 className="font-extrabold">بارگذاری رسانه</h2><p className="mt-1 text-xs text-[#7d8983]">فرمت‌های JPG، PNG، WebP، MP4 و WebM</p></div><button type="button" onClick={() => setUploadOpen(false)} aria-label="بستن"><X size={19} /></button></div>
+          <div className="flex items-center justify-between"><div><h2 className="font-extrabold">بارگذاری رسانه</h2><p className="mt-1 text-xs leading-6 text-[#7d8983]">JPG، PNG، WebP، MP4 یا WebM؛ ویدیو به‌صورت خودکار برای وب آماده می‌شود.</p></div><button type="button" onClick={() => setUploadOpen(false)} aria-label="بستن"><X size={19} /></button></div>
           <label className="grid gap-2 text-sm font-bold">فایل<input className="field h-auto py-3 font-normal" type="file" name="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm" required /></label>
           <label className="grid gap-2 text-sm font-bold">عنوان<input className="field font-normal" name="title" required maxLength={160} placeholder="مثلاً کارگاه مهارت‌های زندگی" /></label>
           <label className="grid gap-2 text-sm font-bold">دسته‌بندی<select className="field font-normal" name="category" value={uploadCategory} onChange={(event) => setUploadCategory(event.target.value as MediaItem["category"])}><option value="ACTIVITY">فعالیت‌های مرکز</option><option value="RECOVERY_STORY">روایت بهبودی</option></select></label>

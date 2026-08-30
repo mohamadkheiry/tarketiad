@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireApiSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { hasValidSignature, isSupportedMimeType, maxFileSize, mediaTypes, safeMediaPath, uploadDirectory } from "@/lib/media-storage";
+import { normalizeVideoForWeb } from "@/lib/video-processing";
 
 export const runtime = "nodejs";
 
@@ -24,7 +25,7 @@ export async function POST(request: NextRequest) {
   const user = await requireApiSession();
   if (!user) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
-  let writtenPath: string | null = null;
+  const cleanupPaths = new Set<string>();
   try {
     const form = await request.formData();
     const file = form.get("file");
@@ -55,34 +56,54 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: "ساختار فایل با فرمت انتخاب‌شده مطابقت ندارد." }, { status: 415 });
     }
 
-    const storageKey = `${randomUUID()}.${definition.extension}`;
+    let storageKey = `${randomUUID()}.${definition.extension}`;
     await mkdir(uploadDirectory(), { recursive: true });
-    writtenPath = safeMediaPath(storageKey);
-    await writeFile(writtenPath, buffer, { flag: "wx" });
+    const sourcePath = safeMediaPath(storageKey);
+    cleanupPaths.add(sourcePath);
+    await writeFile(sourcePath, buffer, { flag: "wx" });
 
-    const item = await db.mediaItem.create({
-      data: {
-        title,
-        caption: clean(form.get("caption"), 2000) || null,
-        altText: clean(form.get("altText"), 240) || title,
-        personName: category === MediaCategory.RECOVERY_STORY ? clean(form.get("personName"), 100) || null : null,
-        type: definition.kind,
-        category,
-        storageKey,
-        mimeType: file.type,
-        fileSize: file.size,
-        consentConfirmed: category === MediaCategory.RECOVERY_STORY ? consentConfirmed : false,
-        consentReference: category === MediaCategory.RECOVERY_STORY && consentConfirmed ? consentReference || null : null,
-        featured: boolean(form.get("featured")),
-        active,
-        order: Number(form.get("order")) || 0,
-      },
+    let storedMimeType = file.type;
+    let storedFileSize = file.size;
+    if (definition.kind === "VIDEO") {
+      const normalizedStorageKey = `${randomUUID()}.mp4`;
+      const normalizedPath = safeMediaPath(normalizedStorageKey);
+      cleanupPaths.add(normalizedPath);
+      storedFileSize = await normalizeVideoForWeb(sourcePath, normalizedPath);
+      if (storedFileSize > maxFileSize("VIDEO")) throw new Error("Normalized video exceeds upload limit");
+      await unlink(sourcePath);
+      cleanupPaths.delete(sourcePath);
+      storageKey = normalizedStorageKey;
+      storedMimeType = "video/mp4";
+    }
+
+    const item = await db.$transaction(async (transaction) => {
+      const created = await transaction.mediaItem.create({
+        data: {
+          title,
+          caption: clean(form.get("caption"), 2000) || null,
+          altText: clean(form.get("altText"), 240) || title,
+          personName: category === MediaCategory.RECOVERY_STORY ? clean(form.get("personName"), 100) || null : null,
+          type: definition.kind,
+          category,
+          storageKey,
+          mimeType: storedMimeType,
+          fileSize: storedFileSize,
+          consentConfirmed: category === MediaCategory.RECOVERY_STORY ? consentConfirmed : false,
+          consentReference: category === MediaCategory.RECOVERY_STORY && consentConfirmed ? consentReference || null : null,
+          featured: boolean(form.get("featured")),
+          active,
+          order: Number(form.get("order")) || 0,
+        },
+      });
+      await transaction.auditLog.create({ data: { action: "CREATE", entity: "MediaItem", entityId: created.id, summary: `رسانه «${created.title}» بارگذاری شد.`, userId: user.id } });
+      return created;
     });
-    await db.auditLog.create({ data: { action: "CREATE", entity: "MediaItem", entityId: item.id, summary: `رسانه «${item.title}» بارگذاری شد.`, userId: user.id } });
+    cleanupPaths.clear();
     return NextResponse.json(item, { status: 201 });
-  } catch {
-    if (writtenPath) await unlink(writtenPath).catch(() => undefined);
-    return NextResponse.json({ message: "بارگذاری فایل انجام نشد. دوباره تلاش کنید." }, { status: 500 });
+  } catch (error) {
+    await Promise.all([...cleanupPaths].map((filePath) => unlink(filePath).catch(() => undefined)));
+    console.error("Media upload or normalization failed", error);
+    return NextResponse.json({ message: "بارگذاری یا آماده‌سازی فایل انجام نشد. از سالم‌بودن فایل مطمئن شوید و دوباره تلاش کنید." }, { status: 500 });
   }
 }
 
