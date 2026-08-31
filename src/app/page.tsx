@@ -50,7 +50,7 @@ export default async function Home() {
   const text = (key: string, fallback: string) => content[key] || fallback;
   const phone = settings?.phone || "09357238914";
   return (
-    <main className="overflow-hidden">
+    <main id="home" className="overflow-hidden">
       <header className="sticky top-0 z-50 border-b border-[#dfe8e3]/80 bg-[#fffdf8]/90 shadow-[0_8px_30px_rgba(18,63,56,.04)] backdrop-blur-xl">
         <div className="container-shell flex h-[78px] items-center justify-between gap-6">
           <Brand />
@@ -61,51 +61,23 @@ export default async function Home() {
         </div>
       </header>
 
-      <section id="home" className="hero-sunrise relative overflow-hidden border-b border-[#e9e4d8]">
-        <div className="hero-orb" aria-hidden="true" />
-        <div className="container-shell relative grid min-h-[730px] items-center gap-12 py-10 lg:grid-cols-[.92fr_1.08fr] lg:py-16">
-          <div className="animate-rise order-2 lg:order-1">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#d9c28d]/60 bg-white/70 px-4 py-2 text-xs font-extrabold text-[#7b5a14] shadow-sm backdrop-blur"><SunMedium size={17} />همراه مسیر بهبودی از سال ۱۳۸۸</div>
-            <h1 className="display-title max-w-2xl text-[clamp(2.65rem,5.3vw,5.35rem)]">{text("hero.title", "هر طلوع، فرصتی تازه برای بازگشت به زندگی است")}</h1>
-            <p className="body-copy mt-7 max-w-xl text-[1.06rem]">{text("hero.description", "شروع درمان لازم نیست با تصمیمی کامل یا قطعی همراه باشد. در طلوع خورشید، ابتدا شرایط شما را بدون قضاوت می‌شنویم و سپس مسیر مراقبت را متناسب با نیازهای فرد و خانواده توضیح می‌دهیم. از سال ۱۳۸۸ در کنار مراجعان هستیم.")}</p>
-            <div className="mt-8 flex flex-wrap gap-3"><a href="#consultation" className="btn-primary"><Phone size={18} />مشاوره محرمانه</a><a href="#media" className="btn-secondary">دیدن فضای واقعی مرکز<ChevronLeft size={18} /></a></div>
-            <ul className="mt-10 grid grid-cols-3 overflow-hidden rounded-2xl border border-[#deded4] bg-white/75 shadow-[0_18px_50px_rgba(18,63,56,.06)] backdrop-blur" aria-label="اطلاعات مرکز">
-              <li className="p-4 sm:p-5"><b className="block text-lg text-[#123f38] sm:text-2xl">۱۳۸۸</b><span className="mt-1 block text-[10px] leading-5 text-[#728079] sm:text-xs">سال تأسیس</span></li>
-              <li className="border-x border-[#e2e3da] p-4 sm:p-5"><b className="block text-lg text-[#123f38] sm:text-2xl">۱۸۵</b><span className="mt-1 block text-[10px] leading-5 text-[#728079] sm:text-xs">شماره ثبت</span></li>
-              <li className="p-4 sm:p-5"><b className="block text-lg text-[#123f38] sm:text-2xl">۲۴/۷</b><span className="mt-1 block text-[10px] leading-5 text-[#728079] sm:text-xs">درخواست آنلاین</span></li>
-            </ul>
-          </div>
-          <div className="relative order-1 lg:order-2">
-            <div className="absolute -left-7 -top-7 size-36 rounded-full border border-[#eebc4f]/45 sm:size-52" aria-hidden="true" />
-            <div className="relative h-[410px] overflow-hidden rounded-[28px] rounded-tr-[92px] border-[7px] border-white shadow-[0_32px_80px_rgba(18,63,56,.18)] sm:h-[520px] lg:h-[610px]">
-              <Image src="/images/hero-threshold-v2.webp" alt="درگاهی روشن رو به باغ؛ نمادی از آغاز دوباره" fill priority sizes="(max-width: 1024px) 100vw, 55vw" className="object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#062c26]/55 via-transparent to-transparent" />
-              <div className="absolute inset-x-5 bottom-5 flex items-center gap-3 rounded-2xl border border-white/25 bg-[#0b382f]/75 p-4 text-white shadow-lg backdrop-blur-md sm:inset-x-auto sm:bottom-7 sm:left-7 sm:max-w-[285px]">
-                <span className="grid size-11 shrink-0 place-items-center rounded-full bg-[#f5b942] text-[#173d35]"><BadgeCheck size={22} /></span>
-                <span><b className="block text-sm">شروع از یک گفت‌وگوی امن</b><small className="mt-1 block text-white/65">تصویر مفهومی · فضای واقعی در بخش رسانه‌ها</small></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section id="management" className="section-space relative overflow-hidden bg-[#fffaf0]">
         <div className="absolute -left-32 top-10 size-96 rounded-full border border-[#d8af50]/18" aria-hidden="true" />
         <div className="absolute -left-20 top-24 size-72 rounded-full border border-[#123f38]/8" aria-hidden="true" />
         <div className="container-shell relative grid items-center gap-12 lg:grid-cols-[.95fr_1.05fr] lg:gap-20">
-          <div>
+          <div className="order-2 lg:order-1">
             <span className="text-sm font-bold text-[#9c7413]">{text("management.kicker", "مدیریت مرکز")}</span>
-            <h2 className="display-title mt-4 text-[clamp(2rem,3.5vw,3.35rem)]">{text("management.title", "کیفیت مراقبت، از مسئولیت‌پذیری روزانه آغاز می‌شود")}</h2>
+            <h1 className="display-title mt-4 text-[clamp(2rem,3.5vw,3.35rem)]">{text("management.title", "کیفیت مراقبت، از مسئولیت‌پذیری روزانه آغاز می‌شود")}</h1>
             <p className="body-copy mt-6 max-w-2xl">{text("management.description", "در طلوع خورشید، مدیریت مرکز بر نظم اجرایی، پاسخ‌گویی روشن به مراجعان و خانواده‌ها، حفظ حریم خصوصی و بهبود مستمر تجربه مراقبت تمرکز دارد؛ تا هر فرد از نخستین تماس، مسیر پیش رو و حقوق خود را شفاف‌تر بشناسد.")}</p>
             <ul className="mt-10 grid border-y border-[#d8dfd9] sm:grid-cols-3 sm:divide-x sm:divide-x-reverse sm:divide-[#d8dfd9]">
               {[[BadgeCheck, text("management.focus1", "پاسخ‌گویی روشن")], [ShieldCheck, text("management.focus2", "حفظ حریم شخصی")], [UsersRound, text("management.focus3", "نظارت بر کیفیت خدمات")]].map(([Icon, label]) => { const FocusIcon = Icon as typeof BadgeCheck; return <li key={label as string} className="flex items-center gap-3 border-b border-[#d8dfd9] py-5 last:border-b-0 sm:block sm:border-b-0 sm:px-5 sm:text-center"><span className="grid size-10 shrink-0 place-items-center rounded-full bg-[#e6efe9] text-[#0f5a43] sm:mx-auto"><FocusIcon size={19} /></span><span className="text-sm font-extrabold text-[#28473a] sm:mt-3 sm:block">{label as string}</span></li>; })}
             </ul>
             <a href="#consultation" className="btn-primary mt-9">گفت‌وگو با مرکز<ChevronLeft size={18} /></a>
           </div>
-          <figure className="relative mx-auto w-full max-w-[560px]">
+          <figure className="relative order-1 mx-auto w-full max-w-[560px] lg:order-2">
             <div className="absolute -inset-3 rotate-2 rounded-[42px] bg-[#123f38]" aria-hidden="true" />
             <div className="relative aspect-square overflow-hidden rounded-[36px] border-8 border-white shadow-[0_28px_80px_rgba(18,63,56,.2)]">
-              <Image src="/images/center-management.webp" alt="سید سجاد هاشمی، مدیر مرکز ترک اعتیاد طلوع خورشید" fill sizes="(max-width: 1024px) 100vw, 48vw" className="object-cover" />
+              <Image src="/images/center-management.webp" alt="سید سجاد هاشمی، مدیر مرکز ترک اعتیاد طلوع خورشید" fill priority sizes="(max-width: 1024px) 100vw, 48vw" className="object-cover" />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#071f1c]/90 via-[#071f1c]/50 to-transparent px-6 pb-6 pt-20 text-white sm:px-8 sm:pb-8">
                 <span className="text-xs font-semibold text-[#f5c65d]">تصویر واقعی · مدیریت مرکز</span>
                 <figcaption className="mt-1.5 text-xl font-black">{text("management.name", "سید سجاد هاشمی")}</figcaption>
@@ -117,6 +89,34 @@ export default async function Home() {
       </section>
 
       <MediaShowcase items={media} />
+
+      <section id="introduction" className="hero-sunrise relative overflow-hidden border-b border-[#e9e4d8]">
+        <div className="hero-orb" aria-hidden="true" />
+        <div className="container-shell relative grid min-h-[730px] items-center gap-12 py-10 lg:grid-cols-[.92fr_1.08fr] lg:py-16">
+          <div className="animate-rise order-2 lg:order-1">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#d9c28d]/60 bg-white/70 px-4 py-2 text-xs font-extrabold text-[#7b5a14] shadow-sm backdrop-blur"><SunMedium size={17} />همراه مسیر بهبودی از سال ۱۳۸۸</div>
+            <h2 className="display-title max-w-2xl text-[clamp(2.65rem,5.3vw,5.35rem)]">{text("hero.title", "هر طلوع، فرصتی تازه برای بازگشت به زندگی است")}</h2>
+            <p className="body-copy mt-7 max-w-xl text-[1.06rem]">{text("hero.description", "شروع درمان لازم نیست با تصمیمی کامل یا قطعی همراه باشد. در طلوع خورشید، ابتدا شرایط شما را بدون قضاوت می‌شنویم و سپس مسیر مراقبت را متناسب با نیازهای فرد و خانواده توضیح می‌دهیم. از سال ۱۳۸۸ در کنار مراجعان هستیم.")}</p>
+            <div className="mt-8 flex flex-wrap gap-3"><a href="#consultation" className="btn-primary"><Phone size={18} />مشاوره محرمانه</a><a href="#media" className="btn-secondary">دیدن فضای واقعی مرکز<ChevronLeft size={18} /></a></div>
+            <ul className="mt-10 grid grid-cols-3 overflow-hidden rounded-2xl border border-[#deded4] bg-white/75 shadow-[0_18px_50px_rgba(18,63,56,.06)] backdrop-blur" aria-label="اطلاعات مرکز">
+              <li className="p-4 sm:p-5"><b className="block text-lg text-[#123f38] sm:text-2xl">۱۳۸۸</b><span className="mt-1 block text-[10px] leading-5 text-[#728079] sm:text-xs">سال تأسیس</span></li>
+              <li className="border-x border-[#e2e3da] p-4 sm:p-5"><b className="block text-lg text-[#123f38] sm:text-2xl">۱۸۵</b><span className="mt-1 block text-[10px] leading-5 text-[#728079] sm:text-xs">شماره ثبت</span></li>
+              <li className="p-4 sm:p-5"><b className="block text-lg text-[#123f38] sm:text-2xl">۲۴/۷</b><span className="mt-1 block text-[10px] leading-5 text-[#728079] sm:text-xs">درخواست آنلاین</span></li>
+            </ul>
+          </div>
+          <div className="relative order-1 lg:order-2">
+            <div className="absolute -left-7 -top-7 size-36 rounded-full border border-[#eebc4f]/45 sm:size-52" aria-hidden="true" />
+            <div className="relative h-[410px] overflow-hidden rounded-[28px] rounded-tr-[92px] border-[7px] border-white shadow-[0_32px_80px_rgba(18,63,56,.18)] sm:h-[520px] lg:h-[610px]">
+              <Image src="/images/hero-threshold-v2.webp" alt="درگاهی روشن رو به باغ؛ نمادی از آغاز دوباره" fill sizes="(max-width: 1024px) 100vw, 55vw" className="object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#062c26]/55 via-transparent to-transparent" />
+              <div className="absolute inset-x-5 bottom-5 flex items-center gap-3 rounded-2xl border border-white/25 bg-[#0b382f]/75 p-4 text-white shadow-lg backdrop-blur-md sm:inset-x-auto sm:bottom-7 sm:left-7 sm:max-w-[285px]">
+                <span className="grid size-11 shrink-0 place-items-center rounded-full bg-[#f5b942] text-[#173d35]"><BadgeCheck size={22} /></span>
+                <span><b className="block text-sm">شروع از یک گفت‌وگوی امن</b><small className="mt-1 block text-white/65">تصویر مفهومی · فضای واقعی در بخش رسانه‌ها</small></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section id="services" className="section-space bg-[#f4f8f5]"><div className="container-shell grid gap-14 lg:grid-cols-[.72fr_1.28fr]"><div className="lg:sticky lg:top-28 lg:self-start"><span className="text-sm font-bold text-[#9c7413]">{text("services.kicker", "خدمات درمان و بهبودی")}</span><h2 className="display-title mt-4 text-[clamp(2rem,3.5vw,3.35rem)]">{text("services.title", "یک برنامه واحد برای همه وجود ندارد")}</h2><p className="body-copy mt-5">{text("services.description", "مسیر مناسب با شناخت نیازهای جسمی، روانی، خانوادگی و اجتماعی هر فرد شکل می‌گیرد و در طول درمان بازبینی می‌شود.")}</p><a href="#consultation" className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#0f4a36]">گفت‌وگو با مشاور <ArrowLeft size={17} /></a></div><div className="divide-y divide-[#cfdcd4] border-y border-[#cfdcd4]">{serviceItems.map(([title, summary], index) => <article key={title} className="group grid gap-4 py-7 sm:grid-cols-[58px_1fr_auto] sm:items-center"><span className="text-2xl font-extralight text-[#a7b7ae]">۰{index + 1}</span><div><h3 className="text-lg font-extrabold text-[#173d2f]">{title}</h3><p className="mt-2 text-sm leading-7 text-[#66736d]">{summary}</p></div><span className="grid size-10 place-items-center rounded-full border border-[#b8c9bf] text-[#175b43] transition group-hover:bg-[#0f4a36] group-hover:text-white"><ArrowLeft size={17} /></span></article>)}</div></div></section>
 
